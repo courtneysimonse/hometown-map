@@ -70,18 +70,16 @@
 
 <body>
 
-	<h1>Map of Lexington</h1>
+	<h1>Murray, Kentucky</h1>
 
 	<div id='map'></div>
 
 	<section>
 		<h2>about this map</h2>
-		<p>Additional information about <a href="#">the data</a> and map goes here. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis urna magna, maximus nec laoreet sit amet, dictum ultricies nibh. Ut id auctor lacus. Nam a dolor et justo luctus luctus.</p>
+		<p>Additional information about <a href="#">the data</a> and map goes here.</p>
 
 		<ul>
-			<li>See my projects on GitHub: <a href="https://github.com/newmapsplus">New Maps Plus</a></li>
-			<li>Follow me on twitter: <a href="https://twitter.com/NewMapsPlus">@NewMapsPlus</a></li>
-			<li>Visit my <a href='#'>mapping portfolio</a>.</li>
+			<li>See my projects on GitHub: <a href="https://github.com/courtneysimonse">Courtney Simonse</a></li>
 		</ul>
 	</section>
 
@@ -91,14 +89,14 @@
 
 		// map options
 		var options = {
-			center: [38.0406, -84.5037], // lat/lon values
-			zoom: 12
+			center: [36.6094, -88.3155], // lat/lon values
+			zoom: 13
 		}
 
 		// create a Leaflet map in our division container with id of 'map'
 		var map = L.map('map', options);
 
-		// request some basemap tiles and add to the map 
+		// request some basemap tiles and add to the map
 		var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 			subdomains: 'abcd',
@@ -106,7 +104,7 @@
 		}).addTo(map);
 
 		// write a custom message for the Leaflet tooltip
-		var message = 'Lexington is awesome!';
+		var message = 'Murray, KY: Friendliest Small Town in America';
 
 		// add a marker to the center of the map and open the tooltip
 		L.marker(map.getCenter())
