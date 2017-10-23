@@ -22,7 +22,7 @@
 		}
 
 		section {
-			width: 960px;
+			width: 80%;
 			margin: 20px auto;
 		}
 
@@ -62,11 +62,23 @@
 		li {
 			margin: 10px 0
 		}
+
 		#map {
 			width: 100%; /* added */
 			height: 540px;
 			margin: 10px auto;
 			border: 2px solid #d3d3d3;
+		}
+
+		.two-column{
+  		float:left;
+  		width:49%;
+  		margin-right:1%;
+		}
+
+		.below-columns {
+  		display:inline-block;
+  		width:100%;
 		}
 	</style>
 </head>
@@ -82,11 +94,17 @@
 
 	<section>
 		<h2>about this map</h2>
-		<p>Murray is home to the world's best Dairy Queen (yes, you can really tell a difference) and <a href="http://murraystate.edu">Murray State University</a>. It was also named the Friendliest Small Town in America in 2013 by Best of the Road!  </p>
-
-		<ul>
-			<li>See my projects on GitHub: <a href="https://github.com/courtneysimonse">Courtney Simonse</a></li>
-		</ul>
+		<div class="two-column"><p>Murray is home to the world's best Dairy Queen (yes, you can really tell a difference) and <a href="http://murraystate.edu">Murray State University</a>. </p></div>
+		<div class="two-column"><p>It was also named the Friendliest Small Town in America in 2013 by Best of the Road! Check out <a href="http://www.tourmurray.com/">things to do</a> in this great city! </p></div>
+		<div class="below-columns">
+			<button id="clickme_id">Photos of Murray</button>
+			<div id="photos_id"></div>
+		</div>
+		<div class="below-columns">
+			<ul>
+				<li>See my projects on GitHub: <a href="https://github.com/courtneysimonse">Courtney Simonse</a></li>
+			</ul>
+		</div>
 	</section>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- different link -->
@@ -125,6 +143,12 @@
 			.bindTooltip(message)
 			.addTo(map)
 			.openTooltip();
+
+		// show photo with button click
+		clickme_id.addEventListener('click', function() {
+  		document.getElementById('photos_id').innerHTML =
+				'<img src="Murray_from_641.jpg" alt="Murray from US 641 By Thelatchkeykid at English Wikipedia" style="width:100%">';
+		});
 
 	</script>
 
