@@ -94,8 +94,8 @@
 
 	<section>
 		<h2>about this map</h2>
-		<div class="two-column"><p>Murray is home to the world's best Dairy Queen (yes, you can really tell a difference) and <a href="http://murraystate.edu">Murray State University</a>. </p></div>
-		<div class="two-column"><p>It was also named the Friendliest Small Town in America in 2013 by Best of the Road! Check out <a href="http://www.tourmurray.com/">things to do</a> in this great city! </p></div>
+		<p>Murray is home to the world's best Dairy Queen (yes, you can really tell a difference) and <a href="http://murraystate.edu">Murray State University</a>. </p>
+		<p>It was also named the Friendliest Small Town in America in 2013 by Best of the Road! Check out <a href="http://www.tourmurray.com/">things to do</a> in this great city! </p>
 		<div class="below-columns">
 			<button id="clickme_id">Photos of Murray</button>
 			<div id="photos_id"></div>
@@ -153,6 +153,19 @@
 			location2Lat = 36.622574,
 			location2Lon = -88.319443,
 			location2Details = 'aka RSEC';
+
+		// Location markers
+		var location1Popup = "<b>" + location1Name + "</b><br>" +
+	  	"<b>Details</b>: " + location1Details;
+
+		L.marker([location1Lat, location1Lon]).addTo(map)
+	  .bindPopup(location1Popup);
+
+		var location2Popup = "<b>" + location2Name + "</b><br>" +
+			"<b>Details</b>: " + location2Details;
+
+		L.marker([location2Lat, location2Lon]).addTo(map)
+		.bindPopup(location2Popup);
 
 		// show photo with button click
 		clickme_id.addEventListener('click', function() {
