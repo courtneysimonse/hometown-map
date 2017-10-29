@@ -144,38 +144,24 @@
 			.addTo(map)
 			.openTooltip();
 
-		// locations around Murray
+		// Locations information for popup and markers
+		// Dairy Queen
 		var location1Name = 'Dairy Queen',
 			location1Lat = 36.610249,
 			location1Lon = -88.316841,
-			location1Details =  'Stop by for a refreshing treat!<br><img src="dairy_queen.jpg" alt="Dairy Queen sign" width=180 height=240>',
-			location2Name = 'CFSB Center',
-			location2Lat = 36.622574,
-			location2Lon = -88.319443,
-			location2Details = 'aka RSEC - home of MSU Racer basketball',
-			location3Name = 'The Arboretum at Murray State',
-			location3Lat = 36.606239,
-			location3Lon = -88.329956,
-			location3Details = 'Great for a walk!<br><img src="the_arboretum.jpg" alt="The Arboretum at Murray State" width=240 height=240>',
-			location4Name = 'Cheri Theaters',
-			location4Lat = 36.617699,
-			location4Lon = -88.313515,
-			location4Details = 'Catch a movie!<br><img src="cheri_theater.jpg" alt="Cheri Theater" width=210 height=175>',
-			location5Name = 'Gate 28',
-			location5Lat = 36.614860,
-			location5Lon = -88.314710,
-			location5Details = 'Cute boutique',
-			location6Name = 'St. Leo',
-			location6Lat = 36.615368,
-			location6Lon =  -88.315300,
-			location6Details = 'Catholic Church';
+			location1Details =  'Stop by for a refreshing treat!<br><img src="dairy_queen.jpg" alt="Dairy Queen sign" width=180 height=240>';
 
-		// Location markers
 		var location1Popup = "<b>" + location1Name + "</b><br>" +
 	  	"<b>Details</b>: " + location1Details;
 
 		L.marker([location1Lat, location1Lon]).addTo(map)
 	  .bindPopup(location1Popup);
+
+		// CFSB Center
+		var	location2Name = 'CFSB Center',
+			location2Lat = 36.622574,
+			location2Lon = -88.319443,
+			location2Details = 'aka RSEC - home of MSU Racer basketball';
 
 		var location2Popup = "<b>" + location2Name + "</b><br>" +
 			"<b>Details</b>: " + location2Details;
@@ -183,11 +169,23 @@
 		L.marker([location2Lat, location2Lon]).addTo(map)
 		.bindPopup(location2Popup);
 
+		// The Arboretum
+		var	location3Name = 'The Arboretum at Murray State',
+			location3Lat = 36.606239,
+			location3Lon = -88.329956,
+			location3Details = 'Great for a walk!<br><img src="the_arboretum.jpg" alt="The Arboretum at Murray State" width=240 height=240>';
+
 		var location3Popup = "<b>" + location3Name + "</b><br>" +
 			"<b>Details</b>: " + location3Details;
 
 		L.marker([location3Lat, location3Lon]).addTo(map)
 		.bindPopup(location3Popup);
+
+		// Cheri Theaters
+		var	location4Name = 'Cheri Theaters',
+			location4Lat = 36.617699,
+			location4Lon = -88.313515,
+			location4Details = 'Catch a movie!<br><img src="cheri_theater.jpg" alt="Cheri Theater" width=210 height=175>';
 
 		var location4Popup = "<b>" + location4Name + "</b><br>" +
 			"<b>Details</b>: " + location4Details;
@@ -195,11 +193,23 @@
 		L.marker([location4Lat, location4Lon]).addTo(map)
 		.bindPopup(location4Popup);
 
+		// Gate 28
+		var	location5Name = 'Gate 28',
+			location5Lat = 36.614860,
+			location5Lon = -88.314710,
+			location5Details = 'Cute boutique';
+
 		var location5Popup = "<b>" + location5Name + "</b><br>" +
 			"<b>Details</b>: " + location5Details;
 
 		L.marker([location5Lat, location5Lon]).addTo(map)
 		.bindPopup(location5Popup);
+
+		// St. Leo Church
+		var	location6Name = 'St. Leo',
+			location6Lat = 36.615368,
+			location6Lon =  -88.315300,
+			location6Details = 'Catholic Church';
 
 		var location6Popup = "<b>" + location6Name + "</b><br>" +
 			"<b>Details</b>: " + location6Details;
