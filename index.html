@@ -152,7 +152,23 @@
 			location2Name = 'CFSB Center',
 			location2Lat = 36.622574,
 			location2Lon = -88.319443,
-			location2Details = 'aka RSEC';
+			location2Details = 'aka RSEC - home of MSU Racer basketball',
+			location3Name = 'The Arboretum at Murray State',
+			location3Lat = 36.606239,
+			location3Lon = -88.329956,
+			location3Details = 'Great for a walk!',
+			location4Name = 'Cheri Theaters',
+			location4Lat = 36.617699,
+			location4Lon = -88.313515,
+			location4Details = 'Catch a movie!',
+			location5Name = 'Gate 28',
+			location5Lat = 36.614860,
+			location5Lon = -88.314710,
+			location5Details = 'Cute boutique',
+			location6Name = 'St. Leo',
+			location6Lat = 36.615368,
+			location6Lon =  -88.315300,
+			location6Details = 'Catholic Church';
 
 		// Location markers
 		var location1Popup = "<b>" + location1Name + "</b><br>" +
@@ -166,6 +182,30 @@
 
 		L.marker([location2Lat, location2Lon]).addTo(map)
 		.bindPopup(location2Popup);
+
+		var location3Popup = "<b>" + location3Name + "</b><br>" +
+			"<b>Details</b>: " + location3Details;
+
+		L.marker([location3Lat, location3Lon]).addTo(map)
+		.bindPopup(location3Popup);
+
+		var location4Popup = "<b>" + location4Name + "</b><br>" +
+			"<b>Details</b>: " + location4Details;
+
+		L.marker([location4Lat, location4Lon]).addTo(map)
+		.bindPopup(location4Popup);
+
+		var location5Popup = "<b>" + location5Name + "</b><br>" +
+			"<b>Details</b>: " + location5Details;
+
+		L.marker([location5Lat, location5Lon]).addTo(map)
+		.bindPopup(location5Popup);
+
+		var location6Popup = "<b>" + location6Name + "</b><br>" +
+			"<b>Details</b>: " + location6Details;
+
+		L.marker([location6Lat, location6Lon]).addTo(map)
+		.bindPopup(location6Popup);
 
 		// show photo with button click
 		clickme_id.addEventListener('click', function() {
