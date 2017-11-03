@@ -232,11 +232,21 @@
 		'Catch a movie!<br><img src="cheri_theater.jpg" alt="Cheri Theater" width=210 height=175>',
 		'Cute boutique','Catholic Church'];
 
+		// Is the location part of Murray State University?
+		var locationMSU = [false,true,true,false,false,false];
+
 		// loop
 		for (var i = 0; i < nameLocation.length; i++) {
 			// build a string with HTML tags and content
+			// add MSU info if applies
+			if (locationMSU[i] = true) {
+				var locationPopup = "<b>" + nameLocation[i] + "</b><br>" +
+  				"<b>Details</b>: " + "Part of Murray State University <br>" + detailsLocation[i];
+			}
+			else {
 				var locationPopup = "<b>" + nameLocation[i] + "</b><br>" +
   				"<b>Details</b>: " + detailsLocation[i];
+			}
 
 			// create a Leaflet marker
 			// add it to the map
