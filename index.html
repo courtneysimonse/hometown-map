@@ -3,13 +3,13 @@
 
 <head>
 	<meta charset=utf-8 />
-	<title>Web Page Template</title>
+	<title>Map of Murray, KY</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.1/dist/leaflet.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />  <!-- different link -->
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> <!-- h1 and h2 font -->
 
 	<style>
 		body {
@@ -18,22 +18,25 @@
 			background: #f5f5f5;
 			font-family: "Noto Sans", sans-serif;
 			color: #3d3d3d;
+			font-size: 100%; /* added */
 		}
 
 		section {
-			width: 960px;
+			width: 80%;
 			margin: 20px auto;
 		}
 
 		h1 {
-			width: 960px;
-			margin: 20px auto;
-			font-family: Lora, serif;
+			/* width: 960px;
+			margin: 20px auto; not in lesson template */
+			font-size: 2em; /* added */
+			font-family: 'Montserrat', serif;
 			letter-spacing: .04em;
-		}
+			}
 
 		h2 {
-			font-family: Lora, serif;
+			font-size: 1.5em; /* added */
+			font-family: 'Montserrat', serif;
 			letter-spacing: .04em;
 		}
 
@@ -43,7 +46,7 @@
 		}
 
 		a {
-			color: #005daa;
+			color: #8c001a; /* changed link color to dark red */
 			font-weight: bold;
 			text-decoration: none;
 		}
@@ -59,50 +62,77 @@
 		li {
 			margin: 10px 0
 		}
+
 		#map {
-			width: 960px;
+			width: 100%; /* added */
 			height: 540px;
 			margin: 10px auto;
 			border: 2px solid #d3d3d3;
+		}
+
+		.two-column{
+  		float:left;
+  		width:49%;
+  		margin-right:1%;
+		}
+
+		.below-columns {
+  		display:inline-block;
+  		width:100%;
 		}
 	</style>
 </head>
 
 <body>
+	<section>
+		<h1>Murray, Kentucky</h1>
+	</section> <!-- added section marker for heading -->
 
-	<h1>Murray, Kentucky</h1>
-
-	<div id='map'></div>
+	<section>
+		<div id='map'></div>
+	</section> <!-- added section marker for map -->
 
 	<section>
 		<h2>about this map</h2>
-		<p>Additional information about <a href="#">the data</a> and map goes here.</p>
-		<p>Check out <a href="http://www.tourmurray.com/">things to do</a> in this great city!</p>
-		<img src="Murray,_Kentucky_from_US_Highway_641.jpg" alt="View from US 641" style="width:855px;height:255px">
-
-		<ul>
-			<li>See my projects on GitHub: <a href="https://github.com/courtneysimonse">Courtney Simonse</a></li>
-		</ul>
+		<p>Murray is home to the world's best Dairy Queen (yes, you can really tell a difference) and <a href="http://murraystate.edu">Murray State University</a>. </p>
+		<p>It was also named the Friendliest Small Town in America in 2013 by Best of the Road! Check out <a href="http://www.tourmurray.com/">things to do</a> in this great city! </p>
+		<div class="below-columns">
+			<button id="clickme_id">Photos of Murray</button>
+			<div id="photos_id"></div>
+		</div>
+		<div class="below-columns">
+			<ul>
+				<li>See my projects on GitHub: <a href="https://github.com/courtneysimonse">Courtney Simonse</a></li>
+			</ul>
+		</div>
 	</section>
 
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-	<script src="https://unpkg.com/leaflet@1.2.0/dist/leaflet-src.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- different link -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script> <!-- different link -->
 	<script>
 
 		// map options
 		var options = {
 			center: [36.6094, -88.3155], // lat/lon values
-			zoom: 13
+			zoom: 14
 		}
 
 		// create a Leaflet map in our division container with id of 'map'
 		var map = L.map('map', options);
 
 		// request some basemap tiles and add to the map
+
+		/* ---- Old base map ----
 		var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
 			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
 			subdomains: 'abcd',
 			maxZoom: 19
+		}).addTo(map);
+		*/
+
+		// ---- New base map! ----
+		var Esri_WorldTopoMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+			attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
 		}).addTo(map);
 
 		// write a custom message for the Leaflet tooltip
@@ -113,6 +143,113 @@
 			.bindTooltip(message)
 			.addTo(map)
 			.openTooltip();
+
+		// Locations information for popup and markers
+		// // Dairy Queen
+		// var location1Name = 'Dairy Queen',
+		// 	location1Lat = 36.610249,
+		// 	location1Lon = -88.316841,
+		// 	location1Details =  'Stop by for a refreshing treat!<br><img src="dairy_queen.jpg" alt="Dairy Queen sign" width=180 height=240>';
+		//
+		// var location1Popup = "<b>" + location1Name + "</b><br>" +
+	  // 	"<b>Details</b>: " + location1Details;
+		//
+		// L.marker([location1Lat, location1Lon]).addTo(map)
+	  // .bindPopup(location1Popup);
+		//
+		// // CFSB Center
+		// var	location2Name = 'CFSB Center',
+		// 	location2Lat = 36.622574,
+		// 	location2Lon = -88.319443,
+		// 	location2Details = 'aka RSEC - home of MSU Racer basketball';
+		//
+		// var location2Popup = "<b>" + location2Name + "</b><br>" +
+		// 	"<b>Details</b>: " + location2Details;
+		//
+		// L.marker([location2Lat, location2Lon]).addTo(map)
+		// .bindPopup(location2Popup);
+		//
+		// // The Arboretum
+		// var	location3Name = 'The Arboretum at Murray State',
+		// 	location3Lat = 36.606239,
+		// 	location3Lon = -88.329956,
+		// 	location3Details = 'Great for a walk!<br><img src="the_arboretum.jpg" alt="The Arboretum at Murray State" width=240 height=240>';
+		//
+		// var location3Popup = "<b>" + location3Name + "</b><br>" +
+		// 	"<b>Details</b>: " + location3Details;
+		//
+		// L.marker([location3Lat, location3Lon]).addTo(map)
+		// .bindPopup(location3Popup);
+		//
+		// // Cheri Theaters
+		// var	location4Name = 'Cheri Theaters',
+		// 	location4Lat = 36.617699,
+		// 	location4Lon = -88.313515,
+		// 	location4Details = 'Catch a movie!<br><img src="cheri_theater.jpg" alt="Cheri Theater" width=210 height=175>';
+		//
+		// var location4Popup = "<b>" + location4Name + "</b><br>" +
+		// 	"<b>Details</b>: " + location4Details;
+		//
+		// L.marker([location4Lat, location4Lon]).addTo(map)
+		// .bindPopup(location4Popup);
+		//
+		// // Gate 28
+		// var	location5Name = 'Gate 28',
+		// 	location5Lat = 36.614860,
+		// 	location5Lon = -88.314710,
+		// 	location5Details = 'Cute boutique';
+		//
+		// var location5Popup = "<b>" + location5Name + "</b><br>" +
+		// 	"<b>Details</b>: " + location5Details;
+		//
+		// L.marker([location5Lat, location5Lon]).addTo(map)
+		// .bindPopup(location5Popup);
+		//
+		// // St. Leo Church
+		// var	location6Name = 'St. Leo',
+		// 	location6Lat = 36.615368,
+		// 	location6Lon =  -88.315300,
+		// 	location6Details = 'Catholic Church';
+		//
+		// var location6Popup = "<b>" + location6Name + "</b><br>" +
+		// 	"<b>Details</b>: " + location6Details;
+		//
+		// L.marker([location6Lat, location6Lon]).addTo(map)
+		// .bindPopup(location6Popup);
+
+		// array for location names
+		var nameLocation = ['Dairy Queen','CFSB Center','The Arboretum at Murray State University','Cheri Theaters','Gate 28','St. Leo'];
+
+		// array for Locations
+		var coordinateLocation = [
+			[36.610249,36.622574,36.606239,36.617699,36.614860,36.615368],
+			[-88.316841,-88.319443,-88.329956,-88.313515,-88.314710,-88.315300]
+		]
+
+		// array for details about Locations
+		var detailsLocation = ['Stop by for a refreshing treat!<br><img src="dairy_queen.jpg" alt="Dairy Queen sign" width=180 height=240>','aka RSEC - home of MSU Racer basketball',
+		'Great for a walk!<br><img src="the_arboretum.jpg" alt="The Arboretum at Murray State" width=240 height=240>',
+		'Catch a movie!<br><img src="cheri_theater.jpg" alt="Cheri Theater" width=210 height=175>',
+		'Cute boutique','Catholic Church'];
+
+		// loop
+		for (var i = 0; i < nameLocation.length; i++) {
+			// build a string with HTML tags and content
+				var locationPopup = "<b>" + nameLocation[i] + "</b><br>" +
+  				"<b>Details</b>: " + detailsLocation[i];
+
+			// create a Leaflet marker
+			// add it to the map
+			// and bind the popup content to the marker.
+			L.marker([coordinateLocation[0][i],coordinateLocation[1][i]]).addTo(map)
+				.bindTooltip(locationPopup);
+		}
+
+		// show photo with button click
+		clickme_id.addEventListener('click', function() {
+  		document.getElementById('photos_id').innerHTML =
+				'<img src="Murray_from_641.jpg" alt="Murray from US 641 By Thelatchkeykid at English Wikipedia" style="width:100%">';
+		});
 
 	</script>
 
