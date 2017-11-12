@@ -6,10 +6,6 @@
 	<title>Map of Murray, KY</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
-	<!-- Nicely done! I would probably merge this back to the challenge branch and then merge the challenge branch back to the master.
-			When you finsih all of the merging, you can delete the old stuff to make your document easier to read. It'll always be in the commit record -->
-
-
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />  <!-- different link -->
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
@@ -125,15 +121,6 @@
 		var map = L.map('map', options);
 
 		// request some basemap tiles and add to the map
-
-		/* ---- Old base map ----
-		var tiles = L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-			attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
-			subdomains: 'abcd',
-			maxZoom: 19
-		}).addTo(map);
-		*/
-
 		// ---- New base map! ----
 		var Esri_WorldTopoMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
 			attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
@@ -147,79 +134,6 @@
 			.bindTooltip(message)
 			.addTo(map)
 			.openTooltip();
-
-		// Locations information for popup and markers
-		// // Dairy Queen
-		// var location1Name = 'Dairy Queen',
-		// 	location1Lat = 36.610249,
-		// 	location1Lon = -88.316841,
-		// 	location1Details =  'Stop by for a refreshing treat!<br><img src="dairy_queen.jpg" alt="Dairy Queen sign" width=180 height=240>';
-		//
-		// var location1Popup = "<b>" + location1Name + "</b><br>" +
-	  // 	"<b>Details</b>: " + location1Details;
-		//
-		// L.marker([location1Lat, location1Lon]).addTo(map)
-	  // .bindPopup(location1Popup);
-		//
-		// // CFSB Center
-		// var	location2Name = 'CFSB Center',
-		// 	location2Lat = 36.622574,
-		// 	location2Lon = -88.319443,
-		// 	location2Details = 'aka RSEC - home of MSU Racer basketball';
-		//
-		// var location2Popup = "<b>" + location2Name + "</b><br>" +
-		// 	"<b>Details</b>: " + location2Details;
-		//
-		// L.marker([location2Lat, location2Lon]).addTo(map)
-		// .bindPopup(location2Popup);
-		//
-		// // The Arboretum
-		// var	location3Name = 'The Arboretum at Murray State',
-		// 	location3Lat = 36.606239,
-		// 	location3Lon = -88.329956,
-		// 	location3Details = 'Great for a walk!<br><img src="the_arboretum.jpg" alt="The Arboretum at Murray State" width=240 height=240>';
-		//
-		// var location3Popup = "<b>" + location3Name + "</b><br>" +
-		// 	"<b>Details</b>: " + location3Details;
-		//
-		// L.marker([location3Lat, location3Lon]).addTo(map)
-		// .bindPopup(location3Popup);
-		//
-		// // Cheri Theaters
-		// var	location4Name = 'Cheri Theaters',
-		// 	location4Lat = 36.617699,
-		// 	location4Lon = -88.313515,
-		// 	location4Details = 'Catch a movie!<br><img src="cheri_theater.jpg" alt="Cheri Theater" width=210 height=175>';
-		//
-		// var location4Popup = "<b>" + location4Name + "</b><br>" +
-		// 	"<b>Details</b>: " + location4Details;
-		//
-		// L.marker([location4Lat, location4Lon]).addTo(map)
-		// .bindPopup(location4Popup);
-		//
-		// // Gate 28
-		// var	location5Name = 'Gate 28',
-		// 	location5Lat = 36.614860,
-		// 	location5Lon = -88.314710,
-		// 	location5Details = 'Cute boutique';
-		//
-		// var location5Popup = "<b>" + location5Name + "</b><br>" +
-		// 	"<b>Details</b>: " + location5Details;
-		//
-		// L.marker([location5Lat, location5Lon]).addTo(map)
-		// .bindPopup(location5Popup);
-		//
-		// // St. Leo Church
-		// var	location6Name = 'St. Leo',
-		// 	location6Lat = 36.615368,
-		// 	location6Lon =  -88.315300,
-		// 	location6Details = 'Catholic Church';
-		//
-		// var location6Popup = "<b>" + location6Name + "</b><br>" +
-		// 	"<b>Details</b>: " + location6Details;
-		//
-		// L.marker([location6Lat, location6Lon]).addTo(map)
-		// .bindPopup(location6Popup);
 
 		// array for location names
 		var nameLocation = ['Dairy Queen','CFSB Center','The Arboretum at Murray State University',
@@ -239,6 +153,28 @@
 
 		// Is the location part of Murray State University?
 		var locationMSU = [false,true,true,false,false,false];
+
+		// Group your locations into categories for symbology
+		var typeLocation = [
+		                "Restaurant",
+										"Basketball"
+		                "Park",
+										"Theater"
+		                "Store",
+										"Church",
+										"School"
+		            ],
+		// Give URL for custom icon
+		typeIconURL = [
+		                "svgs/restaurant-11.svg",
+		                "svgs/basketball-11.svg",
+		                "svgs/park-11.svg",
+										"svgs/cinema-11.svg",
+										"svgs/store-11.svg",
+										"svgs/church-11.svg",
+										"svgs/school-11.svg"
+		            ];
+		// Make sure the position of your type and icon correspond to the correct location!
 
 		// loop
 		for (var i = 0; i < nameLocation.length; i++) {
