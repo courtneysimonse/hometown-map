@@ -6,6 +6,10 @@
 	<title>Map of Murray, KY</title>
 	<meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 
+	<!-- Nicely done! I would probably merge this back to the challenge branch and then merge the challenge branch back to the master.
+			When you finsih all of the merging, you can delete the old stuff to make your document easier to read. It'll always be in the commit record -->
+
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" />  <!-- different link -->
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans" rel="stylesheet">
@@ -233,11 +237,21 @@
 		'Catch a movie!<br><img src="cheri_theater.jpg" alt="Cheri Theater" width=210 height=175>',
 		'Cute boutique','Catholic Church','Sometimes you just have to make the trip','Has bulk bins',"aka Story's - The best fried chicken in town"];
 
+		// Is the location part of Murray State University?
+		var locationMSU = [false,true,true,false,false,false];
+
 		// loop
 		for (var i = 0; i < nameLocation.length; i++) {
 			// build a string with HTML tags and content
+			// add MSU info if applies
+			if (locationMSU[i] = true) {
+				var locationPopup = "<b>" + nameLocation[i] + "</b><br>" +
+  				"<b>Details</b>: " + detailsLocation[i]  + "<br><i>Part of Murray State University</i>"; // Is this any better? Move it to the bottom and italize it?
+			}
+			else {
 				var locationPopup = "<b>" + nameLocation[i] + "</b><br>" +
   				"<b>Details</b>: " + detailsLocation[i];
+			}
 
 			// create a Leaflet marker
 			// add it to the map
