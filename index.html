@@ -141,8 +141,15 @@
 
 		// array for Locations
 		var coordinateLocation = [
-			[36.610249,36.622574,36.606239,36.617699,36.614860,36.615368,36.626980,36.625004,36.597057],
-			[-88.316841,-88.319443,-88.329956,-88.313515,-88.314710,-88.315300,-88.317581,-88.312813,-88.315796]
+			[36.610249,-88.316841],
+			[36.622574,-88.319443],
+			[36.606239,-88.329956],
+			[36.617699,-88.313515],
+			[36.614860,-88.314710],
+			[36.615368,-88.315300],
+			[36.626980,-88.317581],
+			[36.625004,-88.312813],
+			[36.597057,-88.315796]
 		]
 
 		// array for details about Locations
@@ -152,48 +159,61 @@
 		'Cute boutique','Catholic Church','Sometimes you just have to make the trip','Has bulk bins',"aka Story's - The best fried chicken in town"];
 
 		// Is the location part of Murray State University?
-		var locationMSU = [false,true,true,false,false,false];
+		var locationMSU = [false,true,true,false,false,false,false,false,false];
 
 		// Group your locations into categories for symbology
 		var typeLocation = [
 		                "Restaurant",
-										"Basketball"
+										"Basketball",
 		                "Park",
-										"Theater"
-		                "Store",
+										"Theater",
+										"Clothing Store",
 										"Church",
-										"School"
-		            ],
+										"Grocery Store",
+										"Grocery Store",
+										"Grocery Store"
+		            ];
 		// Give URL for custom icon
 		typeIconURL = [
 		                "svgs/restaurant-11.svg",
 		                "svgs/basketball-11.svg",
 		                "svgs/park-11.svg",
 										"svgs/cinema-11.svg",
-										"svgs/store-11.svg",
-										"svgs/church-11.svg",
-										"svgs/school-11.svg"
+										"svgs/clothing-store-11.svg",
+										"svgs/religious-christian-11.svg",
+										"svgs/grocery-11.svg",
+										"svgs/grocery-11.svg",
+										"svgs/grocery-11.svg"
 		            ];
-		// Make sure the position of your type and icon correspond to the correct location!
 
 		// loop
+		// Iterate through array using indexes to access values
+
+    // Build the lcoation popup
 		for (var i = 0; i < nameLocation.length; i++) {
 			// build a string with HTML tags and content
 			// add MSU info if applies
-			if (locationMSU[i] = true) {
+			if (locationMSU[i] == true) {
 				var locationPopup = "<b>" + nameLocation[i] + "</b><br>" +
-  				"<b>Details</b>: " + detailsLocation[i]  + "<br><i>Part of Murray State University</i>"; // Is this any better? Move it to the bottom and italize it?
+  				"<b>Details</b>: " + detailsLocation[i]  + "<br><i>Part of Murray State University</i>";
 			}
 			else {
 				var locationPopup = "<b>" + nameLocation[i] + "</b><br>" +
   				"<b>Details</b>: " + detailsLocation[i];
 			}
 
+    // Build Leaflet icon by calling a function to determine type of location
+      var iconLocation = createIcon(typeLocation[i]); // Function call
+
 			// create a Leaflet marker
 			// add it to the map
 			// and bind the popup content to the marker.
-			L.marker([coordinateLocation[0][i],coordinateLocation[1][i]]).addTo(map)
-				.bindTooltip(locationPopup);
+			L.marker(coordinateLocation[i], {
+                icon: iconLocation // Insert returned function value
+            })
+            .addTo(map)
+            .bindPopup(locationPopup);
+
 		}
 
 		// show photo with button click
@@ -201,6 +221,39 @@
   		document.getElementById('photos_id').innerHTML =
 				'<img src="Murray_from_641.jpg" alt="Murray from US 641 By Thelatchkeykid at English Wikipedia" style="width:100%">';
 		});
+
+		// Function to determine type of location and return appropriate Leaflet icon object
+
+		function createIcon(typeOfLocation) {
+		  var iconURL = "", // declare the iconURL
+		      iconSize = 30; // create default size
+
+		            if (typeOfLocation == "Restaurant") {
+		                iconURL = typeIconURL[0];
+		            } else if (typeOfLocation == "Basketball") {
+		                iconURL = typeIconURL[1];
+		               // iconSize = 40;
+		            } else if (typeOfLocation == "Park") {
+		            		iconURL = typeIconURL[2];
+		            } else if (typeOfLocation == "Theater") {
+		            		iconURL = typeIconURL[3];
+		            } else if (typeOfLocation == "Clothing Store") {
+		            		iconURL = typeIconURL[4];
+		            } else if (typeOfLocation == "Church") {
+		            		iconURL = typeIconURL[5];
+		            } else if (typeOfLocation == "Grocery Store") {
+		            		iconURL = typeIconURL[6];
+		            };
+
+		            // Create a Leaflet icon object
+		            var result = L.icon({
+		                iconUrl: iconURL,
+		                iconSize: iconSize,
+		                popupAnchor: [0, -15] // Center of your icon is [0,0]
+		            });
+		            return result;
+		            // Function returns a properly formatted Leaf icon object to place on your map
+		};
 
 	</script>
 
