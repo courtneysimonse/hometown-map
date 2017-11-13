@@ -98,6 +98,7 @@
 		<p>It was also named the Friendliest Small Town in America in 2013 by Best of the Road! Check out <a href="http://www.tourmurray.com/">things to do</a> in this great city! </p>
 		<div class="below-columns">
 			<button id='mexican_restaurants'>Show Me Mexican Restaurants!</button>
+			<br>
 			<button id="clickme_id">Photos of Murray</button>
 			<div id="photos_id"></div>
 		</div>
@@ -151,7 +152,7 @@
 			[36.626980,-88.317581],
 			[36.625004,-88.312813],
 			[36.597057,-88.315796]
-		]
+		];
 
 		// array for details about Locations
 		var detailsLocation = ['Stop by for a refreshing treat!<br><img src="dairy_queen.jpg" alt="Dairy Queen sign" width=180 height=240>','aka RSEC - home of MSU Racer basketball',
@@ -175,7 +176,7 @@
 										"Grocery Store"
 		            ];
 		// Give URL for custom icon
-		typeIconURL = [
+		var typeIconURL = [
 		                "svgs/restaurant-11.svg",
 		                "svgs/basketball-11.svg",
 		                "svgs/park-11.svg",
@@ -228,13 +229,12 @@
 
 		function createIcon(typeOfLocation) {
 		  var iconURL = "", // declare the iconURL
-		      iconSize = 30; // create default size
+		      iconSize = 20; // create default size
 
 		            if (typeOfLocation == "Restaurant") {
 		                iconURL = typeIconURL[0];
 		            } else if (typeOfLocation == "Basketball") {
 		                iconURL = typeIconURL[1];
-		               // iconSize = 40;
 		            } else if (typeOfLocation == "Park") {
 		            		iconURL = typeIconURL[2];
 		            } else if (typeOfLocation == "Theater") {
@@ -251,7 +251,7 @@
 		            var result = L.icon({
 		                iconUrl: iconURL,
 		                iconSize: iconSize,
-		                popupAnchor: [0, -15] // Center of your icon is [0,0]
+		                popupAnchor: [0, -10] // Center of your icon is [0,0]
 		            });
 		            return result;
 		            // Function returns a properly formatted Leaf icon object to place on your map
@@ -287,7 +287,9 @@
 				// create a Leaflet marker
 				// add it to the map
 				// and bind the popup content to the marker.
-				L.marker(coords[i])
+				L.marker(coords[i], {
+	                icon: createIcon(types[i])
+	            })
 				.addTo(map)
 					.bindTooltip(tooltip)
 					.bindPopup(tooltip);
