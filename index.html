@@ -97,6 +97,7 @@
 		<p>Murray is home to the world's best Dairy Queen (yes, you can really tell a difference) and <a href="http://murraystate.edu">Murray State University</a>. </p>
 		<p>It was also named the Friendliest Small Town in America in 2013 by Best of the Road! Check out <a href="http://www.tourmurray.com/">things to do</a> in this great city! </p>
 		<div class="below-columns">
+			<button id='mexican_restaurants'>Show Me Mexican Restaurants!</button>
 			<button id="clickme_id">Photos of Murray</button>
 			<div id="photos_id"></div>
 		</div>
@@ -212,7 +213,8 @@
                 icon: iconLocation // Insert returned function value
             })
             .addTo(map)
-            .bindPopup(locationPopup);
+            .bindPopup(locationPopup)
+						.bindTooltip(locationPopup);
 
 		}
 
@@ -254,6 +256,44 @@
 		            return result;
 		            // Function returns a properly formatted Leaf icon object to place on your map
 		};
+		// variables for names, locations, and details for each restaurant
+		var mexFoodNames = ["Los Portales","La Cocina","The Burrito Shack"];
+		var mexFoodCoords = [
+			[36.618679, -88.313560],
+			[36.602291, -88.314934],
+			[36.612110, -88.321663]
+		];
+		var mexFoodDetails = ["Try the Pollo Loco or Speedy Gonzales",
+			"Best chips and salsa", "Good for a quick lunch"];
+		var mexFoodLocTypes = ["Restaurant","Restaurant","Restaurant"];
+
+		// button for extra challenge
+		var button = document.getElementById("mexican_restaurants");
+
+		button.addEventListener("click", function() {
+			addMarkers(mexFoodNames,mexFoodCoords,mexFoodDetails,mexFoodLocTypes);
+		});
+
+		// function for adding markers for Mexican restaurants
+		function addMarkers(names,coords,details,types) {
+			// create popups
+			// loop
+			for (var i = 0; i < names.length; i++) {
+
+				// build a string with HTML tags and content
+				var tooltip = "<b>" + names[i] + "</b><br>" +
+						   				"<b>Details</b>: " + details[i];
+
+				// create a Leaflet marker
+				// add it to the map
+				// and bind the popup content to the marker.
+				L.marker(coords[i])
+				.addTo(map)
+					.bindTooltip(tooltip)
+					.bindPopup(tooltip);
+				}
+
+		}
 
 	</script>
 
