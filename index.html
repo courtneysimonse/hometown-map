@@ -137,80 +137,163 @@
 			.addTo(map)
 			.openTooltip();
 
-		// array for location names
-		var nameLocation = ['Dairy Queen','CFSB Center','The Arboretum at Murray State University',
-		'Cheri Theaters','Gate 28','St. Leo','Walmart','Kroger','Food Giant'];
-
-		// array for Locations
-		var coordinateLocation = [
-			[36.610249,-88.316841],
-			[36.622574,-88.319443],
-			[36.606239,-88.329956],
-			[36.617699,-88.313515],
-			[36.614860,-88.314710],
-			[36.615368,-88.315300],
-			[36.626980,-88.317581],
-			[36.625004,-88.312813],
-			[36.597057,-88.315796]
-		];
-
-		// array for details about Locations
-		var detailsLocation = ['Stop by for a refreshing treat!<br><img src="dairy_queen.jpg" alt="Dairy Queen sign" width=180 height=240>','aka RSEC - home of MSU Racer basketball',
-		'Great for a walk!<br><img src="the_arboretum.jpg" alt="The Arboretum at Murray State" width=240 height=240>',
-		'Catch a movie!<br><img src="cheri_theater.jpg" alt="Cheri Theater" width=210 height=175>',
-		'Cute boutique','Catholic Church','Sometimes you just have to make the trip','Has bulk bins',"aka Story's - The best fried chicken in town"];
-
-		// Is the location part of Murray State University?
-		var locationMSU = [false,true,true,false,false,false,false,false,false];
-
-		// Group your locations into categories for symbology
-		var typeLocation = [
-		                "Restaurant",
-										"Basketball",
-		                "Park",
-										"Theater",
-										"Clothing Store",
-										"Church",
-										"Grocery Store",
-										"Grocery Store",
-										"Grocery Store"
-		            ];
-		// Give URL for custom icon
-		var typeIconURL = [
-		                "svgs/restaurant-11.svg",
-		                "svgs/basketball-11.svg",
-		                "svgs/park-11.svg",
-										"svgs/cinema-11.svg",
-										"svgs/clothing-store-11.svg",
-										"svgs/religious-christian-11.svg",
-										"svgs/grocery-11.svg",
-										"svgs/grocery-11.svg",
-										"svgs/grocery-11.svg"
-		            ];
+		// locations
+		var myLocations = [{
+					name: "Dairy Queen",
+					properties: {
+						coordinates: [36.610249,-88.316841],
+						type: 'Restaurant',
+						details: 'Stop by for a refreshing treat!<br><img src="dairy_queen.jpg" alt="Dairy Queen sign" width=180 height=240>',
+						locationMSU: false
+					}
+				},
+				{
+					name: "CFSB Center",
+					properties: {
+						coordinates: [36.622574,-88.319443],
+						type: "Basketball",
+						details: 'aka RSEC - home of MSU Racer basketball',
+						locationMSU: true
+					}
+				},
+				{
+					name: "The Arboretum at Murray State University",
+					properties: {
+						coordinates: [36.606239,-88.329956],
+						type: "Park",
+						details: 'Great for a walk!<br><img src="the_arboretum.jpg" alt="The Arboretum at Murray State" width=240 height=240>',
+						locationMSU: true
+					}
+				},
+				{
+					name: "Cheri Theaters",
+					properties: {
+						coordinates: [36.617699,-88.313515],
+						type: "Theater",
+						details: 'Catch a movie!<br><img src="cheri_theater.jpg" alt="Cheri Theater" width=210 height=175>',
+						locationMSU: false
+					}
+				},
+				{
+					name: "Gate 28",
+					properties: {
+						coordinates: [36.614860,-88.314710],
+						type: "Clothing Store",
+						details: 'Cute boutique',
+						locationMSU: false
+					}
+				},
+				{
+					name: "St. Leo",
+					properties: {
+						coordinates: [36.615368,-88.315300],
+						type: "Church",
+						details: 'Catholic Church',
+						locationMSU: false
+					}
+				},
+				{
+					name: "Walmart",
+					properties: {
+						coordinates: [36.626980,-88.317581],
+						type: "Grocery Store",
+						details: 'Sometimes you just have to make the trip',
+						locationMSU: false
+					}
+				},
+				{
+					name: "Kroger",
+					properties: {
+						coordinates: [36.625004,-88.312813],
+						type: "Grocery Store",
+						details: "has bulk bins",
+						locationMSU: false
+					}
+				},
+				{
+					name: "Food Giant",
+					properties: {
+						coordinates: [36.597057,-88.315796],
+						type: "Grocery Store",
+						details: "aka Story's - The best fried chicken in town",
+						locationMSU: false
+					}
+				},
+				{
+					name: "Pagliai's Pizza",
+					properties: {
+						coordinates: [36.617760, -88.311020],
+						type: "Restaurant",
+						details: "<a href='http://pagliaispizzaofmurray.com/menu.htm'>Italian restaurant</a> with a buffet and kid's play area",
+						locationMSU: false
+					}
+				},
+				{
+					name: "H.R.H. Dumplin's",
+					properties: {
+						coordinates: [36.604908, -88.314804],
+						type: "Restaurant",
+						details: "Great lunch spot. Check out the <a href='https://locu.com/places/dumplins-murray-us/#menu'>menu</a>",
+						locationMSU: false
+					}
+				},
+				{
+					name: "Calloway County High School",
+					properties: {
+						coordinates: [36.618820, -88.341710],
+						type: "School",
+						details: "Home of the Lakers",
+						locationMSU: false
+					}
+				},
+				{
+					name: "Central Park",
+					properties: {
+						coordinates: [36.623680, -88.309790],
+						type: "Park",
+						details: "city pool, disc golf, playgrounds, one-room schoolhouse, Playhouse in the Park, and baseball fields",
+						locationMSU: false
+					}
+				},
+				{
+					name: "Chestnut Park",
+					properties: {
+						coordinates: [36.616337, -88.310141],
+						type: "Park",
+						details: "playground, picnic area, baseball fields, basketball courts",
+						locationMSU: false
+					}
+				}
+		]
 
 		// loop
 		// Iterate through array using indexes to access values
 
     // Build the lcoation popup
-		for (var i = 0; i < nameLocation.length; i++) {
+		for (var i = 0; i < myLocations.length; i++) {
+
+			// variable for properties
+			var props = myLocations[i].properties;
+
 			// build a string with HTML tags and content
 			// add MSU info if applies
-			if (locationMSU[i] == true) {
-				var locationPopup = "<b>" + nameLocation[i] + "</b><br>" +
-  				"<b>Details</b>: " + detailsLocation[i]  + "<br><i>Part of Murray State University</i>";
+			if (props.locationMSU == true) {
+				var locationPopup = "<p><b>" + myLocations[i].name + "</b></p>" +
+  				"<p><b>Details</b>: " + props.details  + "</p>" +
+					"<p><i>Part of Murray State University</i></p>";
 			}
 			else {
-				var locationPopup = "<b>" + nameLocation[i] + "</b><br>" +
-  				"<b>Details</b>: " + detailsLocation[i];
+				var locationPopup = "<p><b>" + myLocations[i].name + "</b></p>" +
+  				"<p><b>Details</b>: " + props.details  + "</p>";
 			}
 
     // Build Leaflet icon by calling a function to determine type of location
-      var iconLocation = createIcon(typeLocation[i]); // Function call
+      var iconLocation = createIcon(props.type); // Function call
 
 			// create a Leaflet marker
 			// add it to the map
 			// and bind the popup content to the marker.
-			L.marker(coordinateLocation[i], {
+			L.marker(props.coordinates, {
                 icon: iconLocation // Insert returned function value
             })
             .addTo(map)
@@ -226,25 +309,27 @@
 		});
 
 		// Function to determine type of location and return appropriate Leaflet icon object
-
+		// Give URL for custom icons
 		function createIcon(typeOfLocation) {
 		  var iconURL = "", // declare the iconURL
 		      iconSize = 20; // create default size
 
 		            if (typeOfLocation == "Restaurant") {
-		                iconURL = typeIconURL[0];
+		                iconURL = "svgs/restaurant-11.svg";
 		            } else if (typeOfLocation == "Basketball") {
-		                iconURL = typeIconURL[1];
+		                iconURL = "svgs/basketball-11.svg";
 		            } else if (typeOfLocation == "Park") {
-		            		iconURL = typeIconURL[2];
+		            		iconURL = "svgs/park-11.svg";
 		            } else if (typeOfLocation == "Theater") {
-		            		iconURL = typeIconURL[3];
+		            		iconURL = "svgs/cinema-11.svg";
 		            } else if (typeOfLocation == "Clothing Store") {
-		            		iconURL = typeIconURL[4];
+		            		iconURL = "svgs/clothing-store-11.svg";
 		            } else if (typeOfLocation == "Church") {
-		            		iconURL = typeIconURL[5];
+		            		iconURL = "svgs/religious-christian-11.svg";
 		            } else if (typeOfLocation == "Grocery Store") {
-		            		iconURL = typeIconURL[6];
+		            		iconURL = "svgs/grocery-11.svg";
+		            } else if (typeOfLocation == "School") {
+		            		iconURL = "svgs/school-11.svg";
 		            };
 
 		            // Create a Leaflet icon object
@@ -254,8 +339,9 @@
 		                popupAnchor: [0, -10] // Center of your icon is [0,0]
 		            });
 		            return result;
-		            // Function returns a properly formatted Leaf icon object to place on your map
+		            // Function returns a properly formatted Leaflet icon object to place on your map
 		};
+
 		// variables for names, locations, and details for each restaurant
 		var mexFoodNames = ["Los Portales","La Cocina","The Burrito Shack"];
 		var mexFoodCoords = [
@@ -296,8 +382,6 @@
 				}
 
 		}
-
-		// Another solid lab!
 
 	</script>
 
