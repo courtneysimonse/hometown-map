@@ -132,7 +132,9 @@
 		var message = 'Murray, KY: Friendliest Small Town in America';
 
 		// add a marker to the center of the map and open the tooltip
-		L.marker(map.getCenter())
+		L.marker(map.getCenter(), {
+			icon: createIcon("Marker")
+		})
 			.bindTooltip(message)
 			.addTo(map)
 			.openTooltip();
@@ -263,50 +265,111 @@
 						details: "playground, picnic area, baseball fields, basketball courts",
 						locationMSU: false
 					}
+				},
+				{
+					name: "Murray High School",
+					properties: {
+						coordinates: [36.602016, -88.332184],
+						type: "School",
+						details: "Home of the Tigers",
+						locationMSU: false
+					}
+				},
+				{
+					name: "Roy Stewart Stadium",
+					properties: {
+						coordinates: [36.621210, -88.317930],
+						type: "Football",
+						details: "Home of Racer Football",
+						locationMSU: true
+					}
 				}
 		]
 
-		// loop
-		// Iterate through array using indexes to access values
+		// place markers
+		addMarkers(myLocations);
 
-    // Build the lcoation popup
-		for (var i = 0; i < myLocations.length; i++) {
-
-			// variable for properties
-			var props = myLocations[i].properties;
-
-			// build a string with HTML tags and content
-			// add MSU info if applies
-			if (props.locationMSU == true) {
-				var locationPopup = "<p><b>" + myLocations[i].name + "</b></p>" +
-  				"<p><b>Details</b>: " + props.details  + "</p>" +
-					"<p><i>Part of Murray State University</i></p>";
-			}
-			else {
-				var locationPopup = "<p><b>" + myLocations[i].name + "</b></p>" +
-  				"<p><b>Details</b>: " + props.details  + "</p>";
-			}
-
-    // Build Leaflet icon by calling a function to determine type of location
-      var iconLocation = createIcon(props.type); // Function call
-
-			// create a Leaflet marker
-			// add it to the map
-			// and bind the popup content to the marker.
-			L.marker(props.coordinates, {
-                icon: iconLocation // Insert returned function value
-            })
-            .addTo(map)
-            .bindPopup(locationPopup)
-						.bindTooltip(locationPopup);
-
-		}
 
 		// show photo with button click
 		clickme_id.addEventListener('click', function() {
   		document.getElementById('photos_id').innerHTML =
 				'<img src="Murray_from_641.jpg" alt="Murray from US 641 By Thelatchkeykid at English Wikipedia" style="width:100%">';
 		});
+
+
+
+		// array of objects for Mexican food button
+		mexFood = [
+			{
+				name: "Los Portales",
+				properties: {
+					coordinates: [36.618679, -88.313560],
+					type: "Restaurant",
+					details: "Try the Pollo Loco or Speedy Gonzales",
+				}
+			},
+			{
+				name: "La Cocina",
+				properties: {
+					coordinates: [36.602291, -88.314934],
+					type: "Restaurant",
+					details: "Best chips and salsa",
+				}
+			},
+			{
+				name: "The Burrito Shack",
+				properties: {
+					coordinates: [36.612110, -88.321663],
+					type: "Restaurant",
+					details: "Good for a quick lunch",
+				}
+			}
+		]
+
+		// button for extra challenge
+		var button = document.getElementById("mexican_restaurants");
+
+		button.addEventListener("click", function() {
+			addMarkers(mexFood);
+		});
+
+		// function for adding markers
+		function addMarkers(locations) {
+			// create popups
+			// loop
+			// Build the lcoation popup
+			for (var i = 0; i < locations.length; i++) {
+
+				// variable for properties
+				var props = locations[i].properties;
+
+				// build a string with HTML tags and content
+				// add MSU info if applies
+				if (props.locationMSU == true) {
+					var locationPopup = "<p><b>" + locations[i].name + "</b></p>" +
+	  				"<p><b>Details</b>: " + props.details  + "</p>" +
+						"<p><i>Part of Murray State University</i></p>";
+				}
+				else {
+					var locationPopup = "<p><b>" + locations[i].name + "</b></p>" +
+	  				"<p><b>Details</b>: " + props.details  + "</p>";
+				}
+
+	    // Build Leaflet icon by calling a function to determine type of location
+	      var iconLocation = createIcon(props.type); // Function call
+
+				// create a Leaflet marker
+				// add it to the map
+				// and bind the popup content to the marker.
+				L.marker(props.coordinates, {
+	                icon: iconLocation // Insert returned function value
+	            })
+	            .addTo(map)
+	            .bindPopup(locationPopup)
+							.bindTooltip(locationPopup);
+
+			}
+		};
 
 		// Function to determine type of location and return appropriate Leaflet icon object
 		// Give URL for custom icons
@@ -330,6 +393,10 @@
 		            		iconURL = "svgs/grocery-11.svg";
 		            } else if (typeOfLocation == "School") {
 		            		iconURL = "svgs/school-11.svg";
+		            } else if (typeOfLocation == "Football") {
+		            		iconURL = "svgs/america-football-11.svg";
+		            } else  {
+		            		iconURL = "svgs/marker-11.svg";
 		            };
 
 		            // Create a Leaflet icon object
@@ -341,47 +408,6 @@
 		            return result;
 		            // Function returns a properly formatted Leaflet icon object to place on your map
 		};
-
-		// variables for names, locations, and details for each restaurant
-		var mexFoodNames = ["Los Portales","La Cocina","The Burrito Shack"];
-		var mexFoodCoords = [
-			[36.618679, -88.313560],
-			[36.602291, -88.314934],
-			[36.612110, -88.321663]
-		];
-		var mexFoodDetails = ["Try the Pollo Loco or Speedy Gonzales",
-			"Best chips and salsa", "Good for a quick lunch"];
-		var mexFoodLocTypes = ["Restaurant","Restaurant","Restaurant"];
-
-		// button for extra challenge
-		var button = document.getElementById("mexican_restaurants");
-
-		button.addEventListener("click", function() {
-			addMarkers(mexFoodNames,mexFoodCoords,mexFoodDetails,mexFoodLocTypes);
-		});
-
-		// function for adding markers for Mexican restaurants
-		function addMarkers(names,coords,details,types) {
-			// create popups
-			// loop
-			for (var i = 0; i < names.length; i++) {
-
-				// build a string with HTML tags and content
-				var tooltip = "<b>" + names[i] + "</b><br>" +
-						   				"<b>Details</b>: " + details[i];
-
-				// create a Leaflet marker
-				// add it to the map
-				// and bind the popup content to the marker.
-				L.marker(coords[i], {
-	                icon: createIcon(types[i])
-	            })
-				.addTo(map)
-					.bindTooltip(tooltip)
-					.bindPopup(tooltip);
-				}
-
-		}
 
 	</script>
 
