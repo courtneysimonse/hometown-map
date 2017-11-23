@@ -393,9 +393,9 @@
 	        this.openPopup();
         });
 
-        // marker.on('mouseout', function(){
-        //     this.closePopup();
-        // });
+        marker.on('mouseout', function(){
+            this.closePopup();
+        }); // Close a mouseover popup
 
 			}
 		};
@@ -404,7 +404,7 @@
 		// Give URL for custom icons
 		function createIcon(typeOfLocation) {
 		  var iconURL = "", // declare the iconURL
-		      iconSize = 20; // create default size
+		      iconSize = 30; // create default size, which I increased!
 
 		            if (typeOfLocation == "Restaurant") {
 		                iconURL = "svgs/restaurant-11.svg";
