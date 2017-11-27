@@ -31,10 +31,19 @@
 		h1 {
 			/* width: 960px;
 			margin: 20px auto; not in lesson template */
+			position: absolute;
+			margin-top: 0;
+			top: 10px;
+			left: 15px;
 			font-size: 2em; /* added */
 			font-family: 'Montserrat', serif;
 			letter-spacing: .04em;
-			}
+			padding: 10px 15px;
+			background: rgba(256, 256, 256, .4);
+			border: 1px solid grey;
+			border-radius: 3px;
+			z-index: 800;
+		}
 
 		h2 {
 			font-size: 1.5em; /* added */
@@ -66,10 +75,25 @@
 		}
 
 		#map {
-			width: 100%; /* added */
-			height: 540px;
+			width: 100%;
+			/*height: 540px;
 			margin: 10px auto;
 			border: 2px solid #d3d3d3;
+			position: absolute;*/
+			top: 0;
+			bottom: 0;
+		}
+
+		#about {
+			position: absolute;
+			bottom: 20px;
+			left: 15px;
+			width: 280px;
+			padding: 0 15px;
+			background: rgba(256, 256, 256, .4);
+			border: 1px solid grey;
+			border-radius: 3px;
+			z-index: 800;
 		}
 
 		.two-column{
@@ -113,7 +137,7 @@
 		<div id='map'></div>
 	</section> <!-- added section marker for map -->
 
-	<section>
+	<section id="about">
 		<h2>about this map</h2>
 		<p>Murray is home to the world's best Dairy Queen (yes, you can really tell a difference) and <a href="http://murraystate.edu">Murray State University</a>. </p>
 		<p>It was also named the Friendliest Small Town in America in 2013 by Best of the Road! Check out <a href="http://www.tourmurray.com/">things to do</a> in this great city! </p>
@@ -132,6 +156,7 @@
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- different link -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script> <!-- different link -->
+	<script src="data/route.js"></script>
 	<script>
 
 		// map options
@@ -162,6 +187,69 @@
 
 		// place markers
 		addMarkers(myLocations.features);
+
+		// Filter and add features
+		var myRoute = L.geoJson(routeData, {
+
+		    filter : function(feature) {
+		        if(feature.geometry.type == "LineString") {
+		            return feature;
+		        }
+		    },
+		    style : function(feature) {
+
+		        return {
+		            color: "#005DAA",
+		            weight: 4,
+		            opacity: .6,
+		            dashArray: "1, 10"
+		        }
+		    }
+
+		}).addTo(map);
+
+		// change route style on mouseover
+		// loop through each layer
+		myRoute.eachLayer(function(layer) {
+
+				// set an event listener on each layer
+				layer.on('mouseover', function(e) {
+
+						// change the style properties of that layer
+						e.target.setStyle({
+								color: 'red',
+								weight: 5
+						});
+				});
+				// change back
+				layer.on('mouseout', function(e) {
+								e.target.setStyle({
+										color: '#005DAA',
+										weight: 4
+								});
+				});
+		});
+
+		var myStops = L.geoJson(routeData, {
+
+		    filter : function(feature) {
+		        if(feature.geometry.type == "Point") {
+		            return feature;
+		        }
+		    },
+		    onEachFeature : function(feature, layer) {
+
+		        // console.log(feature.properties)
+						layer.bindTooltip(feature.properties.name);
+
+						// center map on marker and zoom in on click
+						layer.on('click', function(e) {
+								map.setView(layer.getLatLng(), options.zoom + 2);
+							})
+
+		    }
+
+		}).addTo(map);
 
 
 		// show photo with button click
@@ -206,7 +294,8 @@
 				// add it to the map
 				// and bind the popup content to the marker.
 				var marker = L.marker(props.coordinates, {
-	                icon: iconLocation // Insert returned function value
+	                icon: iconLocation, // Insert returned function value
+									riseOnHover: true
 	            })
 	            .addTo(map)
 	            .bindPopup(locationPopup);
