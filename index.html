@@ -23,10 +23,10 @@
 			font-size: 100%; /* added */
 		}
 
-		section {
+		/* section {
 			width: 80%;
 			margin: 20px auto;
-		}
+		} */
 
 		h1 {
 			/* width: 960px;
@@ -51,18 +51,18 @@
 			letter-spacing: .04em;
 		}
 
-		p {
+		#about p {
 			font-size: 1em;
 			line-height: 1.5em;
 		}
 
-		a {
+		#about a {
 			color: #8c001a; /* changed link color to dark red */
 			font-weight: bold;
 			text-decoration: none;
 		}
 
-		a:hover {
+		#about a:hover {
 			text-decoration: underline;
 		}
 
@@ -76,19 +76,31 @@
 
 		#map {
 			width: 100%;
-			/*height: 540px;
+			/* height: 540px;
 			margin: 10px auto;
-			border: 2px solid #d3d3d3;
-			position: absolute;*/
+			border: 2px solid #d3d3d3; */
+			position: absolute;
 			top: 0;
 			bottom: 0;
 		}
 
 		#about {
-			position: absolute;
+			position: fixed;
 			bottom: 20px;
 			left: 15px;
-			width: 280px;
+			width: 350px;
+			padding: 0 15px;
+			background: rgba(256, 256, 256, .4);
+			border: 1px solid grey;
+			border-radius: 3px;
+			z-index: 800;
+		}
+
+		#images {
+			position: fixed;
+			bottom: 20px;
+			right: 15px;
+			width: 350px;
 			padding: 0 15px;
 			background: rgba(256, 256, 256, .4);
 			border: 1px solid grey;
@@ -125,6 +137,14 @@
 			text-decoration: none;
 		}
 
+		button {
+			background-color: white;
+			border: 2px solid #d3d3d3;
+			border-radius: 4px;
+			color: #8c001a;
+			padding: 3px 10px;
+		}
+
 	</style>
 </head>
 
@@ -143,15 +163,17 @@
 		<p>It was also named the Friendliest Small Town in America in 2013 by Best of the Road! Check out <a href="http://www.tourmurray.com/">things to do</a> in this great city! </p>
 		<div class="below-columns">
 			<button id='mexican_restaurants'>Show Me Mexican Restaurants!</button>
-			<br>
-			<button id="clickme_id">Photos of Murray</button>
-			<div id="photos_id"></div>
 		</div>
 		<div class="below-columns">
 			<ul>
 				<li>See my projects on GitHub: <a href="https://github.com/courtneysimonse">Courtney Simonse</a></li>
 			</ul>
 		</div>
+	</section>
+
+	<section id="images">
+		<button id="clickme_id">Photos of Murray</button>
+		<div id="photos_id"></div>
 	</section>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> <!-- different link -->
@@ -162,11 +184,17 @@
 		// map options
 		var options = {
 			center: [36.6094, -88.3155], // lat/lon values
-			zoom: 14
+			zoom: 14,
+			zoomControl: false
 		}
 
 		// create a Leaflet map in our division container with id of 'map'
 		var map = L.map('map', options);
+
+		// add zoom control to top right so it doesn't interfere with h1
+		L.control.zoom({
+				position: 'topright'
+			}).addTo(map);
 
 		// request some basemap tiles and add to the map
 		// ---- New base map! ----
@@ -245,7 +273,7 @@
 						// center map on marker and zoom in on click
 						layer.on('click', function(e) {
 								map.setView(layer.getLatLng(), options.zoom + 2);
-							})
+							});
 
 		    }
 
@@ -344,7 +372,7 @@
 		            var result = L.icon({
 		                iconUrl: iconURL,
 		                iconSize: iconSize,
-		                popupAnchor: [0, -10] // Center of your icon is [0,0]
+		                popupAnchor: [0, -15] // Center of your icon is [0,0]
 		            });
 		            return result;
 		            // Function returns a properly formatted Leaflet icon object to place on your map
