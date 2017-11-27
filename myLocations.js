@@ -25,7 +25,7 @@ features: [{
   properties: {
     coordinates: [36.610249,-88.316841],
     type: 'Restaurant',
-    details: 'Stop by for a refreshing treat!<br><img src="images/dairy_queen.jpg" alt="Dairy Queen sign" width=180 height=240>',
+    details: 'Stop by for a refreshing treat!<br><img src="dairy_queen.jpg" alt="Dairy Queen sign" width=180 height=240>',
     locationMSU: false
   }
   },
@@ -43,7 +43,7 @@ features: [{
   properties: {
     coordinates: [36.606239,-88.329956],
     type: "Park",
-    details: 'Great for a walk!<br><a href="https://www.facebook.com/MSUArboretum/" target="_blank"><img src="images/the_arboretum.jpg" alt="The Arboretum at Murray State" width=240 height=240></a>',
+    details: 'Great for a walk!<br><a href="https://www.facebook.com/MSUArboretum/" target="_blank"><img src="the_arboretum.jpg" alt="The Arboretum at Murray State" width=240 height=240></a>',
     locationMSU: true
   }
   },
@@ -52,7 +52,7 @@ features: [{
   properties: {
     coordinates: [36.617699,-88.313515],
     type: "Theater",
-    details: 'Catch a movie!<br><a href="http://www.moviesinmurray.com" target="_blank"><img src="images/cheri_theater.jpg" alt="Cheri Theater" width=210 height=175></a>',
+    details: 'Catch a movie!<br><a href="http://www.moviesinmurray.com" target="_blank"><img src="cheri_theater.jpg" alt="Cheri Theater" width=210 height=175></a>',
     locationMSU: false
   }
   },
