@@ -281,9 +281,14 @@
 
 
 		// show photo with button click
+		// and then remove it with an if/else statement
 		clickme_id.addEventListener('click', function() {
+			var y = document.getElementById('photos_id');
+			if (y.innerHTML.includes("img")) {
+				document.getElementById('photos_id').innerHTML = ""
+			} else {
   		document.getElementById('photos_id').innerHTML =
-				'<img src="images/Murray_from_641.jpg" alt="Murray from US 641 By Thelatchkeykid at English Wikipedia" style="width:100%">';
+				'<img src="images/Murray_from_641.jpg" alt="Murray from US 641 By Thelatchkeykid at English Wikipedia" style="width:100%">'; }
 		});
 
 		// button for extra challenge
